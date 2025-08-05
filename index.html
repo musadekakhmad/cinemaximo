@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cinemaximo - Your Ultimate Destination for Free HD Movie Streaming</title>
-    <!-- Favicon: Using an SVG emoji for efficiency and relevance -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>">
-    <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
@@ -56,12 +54,10 @@
         }
     </style>
 
-    <!-- SEO Meta Tags -->
     <meta name="description" content="Welcome to Cinemaximo, the best free movie streaming platform online. Watch thousands of HD movies, from new releases to timeless classics, with no subscription required. Your ultimate source for unlimited entertainment.">
     <meta name="keywords" content="Cinemaximo, free movies, watch movies online, HD streaming, latest movies, popular movies, no subscription, free entertainment, online cinema, movie streaming site">
     <link rel="canonical" href="https://cinemaximo.netlify.app/">
 
-    <!-- Open Graph & Twitter Meta Tags for social media sharing -->
     <meta property="og:title" content="Cinemaximo - Free HD Movie Streaming">
     <meta property="og:description" content="The best free movie streaming platform. Watch thousands of HD movies for free.">
     <meta property="og:image" content="https://live.staticflickr.com/65535/54700927490_c2f6a1865c_b.jpg">
@@ -75,18 +71,15 @@
 
 </head>
 <body class="bg-gray-900 text-gray-200">
-    <!-- Header and Navigation -->
     <header class="bg-gray-800 shadow-md sticky-header">
         <div class="container mx-auto px-4 max-w-7xl">
             <nav class="p-4 flex flex-col md:flex-row justify-between items-center">
                 <a href="#" id="home-link" class="flex items-center mb-4 md:mb-0">
-                    <!-- Movie Icon -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-400 mr-3" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M18 3H6c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM6 5h12v14H6V5zm10 12h-2v-2h2v2zM8 7h2v2H8V7zm0 4h2v2H8v-2zm0 4h2v2H8v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2zm4-4h2v2h-2v-2z"/>
                     </svg>
                     <span class="rainbow-text-header text-3xl md:text-4xl">Cinemaximo</span>
                 </a>
-                <!-- Navigation links, dropdowns, and search bar -->
                 <div class="flex items-center space-x-4">
                     <a href="#" class="text-white hover:text-red-500 hover:font-bold transition-colors duration-300">Home</a>
                     <div class="relative group">
@@ -117,7 +110,6 @@
                             <button class="block w-full text-left px-4 py-2 hover:bg-gray-600" data-category="top_rated" data-type="tv">Top Rated</button>
                         </div>
                     </div>
-                    <!-- Search Form -->
                     <form id="search-form" class="flex items-center">
                         <input type="text" id="search-input" placeholder="Search movies or TV shows..." class="px-3 py-1 text-sm rounded-l-full bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 w-40 md:w-auto">
                         <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-r-full shadow-lg transition-colors duration-300">
@@ -131,14 +123,11 @@
         </div>
     </header>
 
-    <!-- Main Content Area -->
     <main id="main-content" class="container mx-auto px-4 py-8 max-w-7xl">
-        <!-- Main Banner Image -->
         <div id="hero-section" class="mb-8 rounded-lg overflow-hidden shadow-lg">
             <img src="https://live.staticflickr.com/65535/54700927490_c2f6a1865c_b.jpg" alt="Cinemaximo Movie Streaming Banner" class="w-full h-auto">
         </div>
 
-        <!-- Main Heading -->
         <h1 id="main-heading" class="text-3xl md:text-4xl font-extrabold text-white mb-6 leading-tight flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-yellow-400 mr-4 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M18 3H6c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM6 5h12v14H6V5zm10 12h-2v-2h2v2zM8 7h2v2H8V7zm0 4h2v2H8v-2zm0 4h2v2H8v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2zm4-4h2v2h-2v-2z"/>
@@ -146,20 +135,15 @@
             Welcome to Cinemaximo: Your Ultimate Destination for the Best Free Movie Streaming
         </h1>
 
-        <!-- Introduction Section -->
         <p id="intro-section" class="text-lg mb-8 text-gray-300 text-justify">
             Welcome to Cinemaximo, a revolutionary platform designed specifically for cinema lovers seeking a high-quality movie watching experience at no cost. In today's digital age, where entertainment is an inseparable part of daily life, Cinemaximo serves as an advanced solution to meet your needs. We understand how valuable your free time is, and we are committed to providing unlimited access to thousands of films across various genres, from the latest Hollywood blockbusters to timeless classics. With a constantly updated collection and a user-friendly interface, Cinemaximo is not just a streaming site but a community for those passionate about the seventh art.
         </p>
         
-        <!-- Placeholder for dynamic content -->
         <div id="content-area"></div>
     </main>
 
-    <!-- Dedicated Streaming Page View -->
-    <!-- Added pt-20 to push content down and clear the sticky header -->
     <div id="streaming-page-view" class="hidden w-full min-h-screen bg-gray-900 absolute top-0 left-0 z-40 overflow-y-auto p-4 pt-20">
         <div class="container mx-auto px-4 py-8 max-w-7xl">
-            <!-- Back button for the streaming view -->
             <button id="streaming-back-button" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-full transition-colors duration-300 mb-6 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -167,7 +151,6 @@
                 Back to Details
             </button>
 
-            <!-- Streaming player and controls -->
             <h3 id="streaming-page-title" class="text-xl md:text-2xl font-bold text-white mb-4 text-center"></h3>
             <div class="relative w-full h-0 pb-[56.25%] rounded-lg overflow-hidden mb-4">
                 <iframe id="streaming-player-inline" class="absolute top-0 left-0 w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -182,46 +165,22 @@
                 <p>Enjoy the show! Share this web link if you like it!</p>
             </div>
 
-            <!-- "Some people like this" section within the streaming view -->
             <div class="mt-[0.7cm] text-center">
                 <h4 class="text-lg font-bold text-white mb-4">Some people like this</h4>
-                <!-- Changed to grid layout for normal display -->
                 <div id="inline-similar-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                    <!-- Film cards will be inserted here dynamically -->
-                </div>
+                    </div>
             </div>
         </div>
     </div>
 
 
-    <!-- Footer Section -->
     <footer class="bg-gray-800 text-center text-gray-400 p-4 mt-12">
-        <p>&copy; 2024 Cinemaximo. All rights reserved.</p>
+        <p>© 2024 Cinemaximo. All rights reserved.</p>
     </footer>
 
-    <script>
-        // Mendefinisikan variabel global untuk tautan iklan dari config.js
-        // Pastikan file config.js dimuat sebelum script ini
-        window.ADSTERRA_DIRECT_LINKS = [
-            'https://discreetisabella.com/g77bpz0g?key=f1cc7147d1c59d932b6186896ab8854c',
-            'https://discreetisabella.com/vttzzi1n?key=bfc8d7d57de835830a0d72fbe7a47be1',
-            'https://discreetisabella.com/y5fc24f7?key=d6efa8068c5da148ed5cf346ffa62290',
-            'https://discreetisabella.com/a43vczjf1b?key=70467091cade36a7f916bfe58dc80cff',
-            'https://discreetisabella.com/t71keggw?key=9c6906c82c8eb114e2baef9058f4c4e5',
-            'https://discreetisabella.com/vb5ixea83?key=c4e7438c85503eda026984db5e7aa3c4',              
-            'https://discreetisabella.com/x818nj48?key=db0a9d9fa9d81626b459383a7bdc33ee',
-            'https://discreetisabella.com/gd8bwkyj?key=d2d35cf16f521bf5e9accfdd865dae8f',
-            'https://discreetisabella.com/paij3re0by?key=fa60f72b73c05d987bd978f83a6deaa8',
-            'https://discreetisabella.com/gh4tkda15?key=080742d09d4b5234a4fdaa773e48ebd4',
-            'https://discreetisabella.com/u1ipxidjif?key=bf544685cc418fde38d3de4391de6fee',
-            'https://discreetisabella.com/nu4ravi1cx?key=4d0556009c2d17968977e235d5de925a',
-            'https://discreetisabella.com/wdhedf2wx?key=a2c98838af4390b59e8b7aaaea3f1660',
-            'https://discreetisabella.com/yed8kj7bvw?key=b7830767455354f8e097df2a9e0f040c',
-            'https://discreetisabella.com/w2sw8zgx21?key=d34ca1378210247721e98e65d20b3693',
-            'https://discreetisabella.com/qn92sfcb?key=a8333f15c6bba15e367a5456f691547c',
-            'https://discreetisabella.com/rz2xzbfm?key=8c4045c97068010d84c3f1002e82b1c9'
-        ];
+    <script src="config.js"></script>
 
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             // #############################################
             // API KEY CONFIGURATION (UPDATED)
@@ -240,6 +199,7 @@
             let clickCounter = 0; // Global click counter
 
             const openAdsterraLink = () => {
+                // Sekarang variabel ini dimuat dari file config.js
                 if (window.ADSTERRA_DIRECT_LINKS && window.ADSTERRA_DIRECT_LINKS.length > 0) {
                     const randomIndex = Math.floor(Math.random() * window.ADSTERRA_DIRECT_LINKS.length);
                     const adLink = window.ADSTERRA_DIRECT_LINKS[randomIndex];
