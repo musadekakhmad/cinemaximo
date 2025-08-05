@@ -257,7 +257,8 @@
                 searchQuery: null,
                 currentTrailerKey: null,
                 currentMediaId: null, // Menyimpan ID media saat ini
-                currentMediaType: null // Menyimpan tipe media saat ini
+                currentMediaType: null, // Menyimpan tipe media saat ini
+                currentMediaTitle: null // Menyimpan judul media saat ini
             };
 
             const updateState = (newState) => {
@@ -560,9 +561,10 @@
 
                     loadingSpinner.remove();
 
-                    // Menyimpan ID dan tipe media ke dalam state global
+                    // Menyimpan ID, tipe, dan JUDUL media ke dalam state global
                     state.currentMediaId = id;
                     state.currentMediaType = type;
+                    state.currentMediaTitle = details.title || details.name; // Simpan judul di sini
 
                     const backButton = document.createElement('button');
                     backButton.className = 'bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-full transition-colors duration-300 mb-6 flex items-center';
@@ -757,7 +759,7 @@
                     // Menambahkan event listener untuk tombol "Stream Now" yang baru (untuk mengaktifkan tampilan streaming)
                     document.getElementById('trigger-streaming-view-button').addEventListener('click', async () => {
                         updateState({ currentView: 'streaming' });
-                        streamingPageTitle.textContent = `Streaming: ${details.title || details.name}`;
+                        streamingPageTitle.textContent = `Streaming: ${state.currentMediaTitle}`; // Gunakan state.currentMediaTitle
                         // Hapus pemanggilan streamingPlayerInline.src di sini
                         // streamingPlayerInline.src = `https://vidsrc.me/embed/${state.currentMediaId}`; // Dihapus
 
@@ -929,7 +931,15 @@
             // Tombol kembali untuk tampilan streaming
             streamingBackButton.addEventListener('click', () => {
                 streamingPlayerInline.src = ''; // Hentikan video saat kembali
-                history.back(); // Kembali ke hash sebelumnya (halaman detail)
+                // Gunakan updateState untuk kembali ke halaman detail yang relevan
+                updateState({
+                    currentView: 'details',
+                    detailsParams: {
+                        type: state.currentMediaType,
+                        id: state.currentMediaId,
+                        title: state.currentMediaTitle // Gunakan judul yang disimpan di state
+                    }
+                });
             });
         });
     </script>

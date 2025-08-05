@@ -1,7 +1,4 @@
-// config.js
-// File ini berisi konfigurasi global yang dapat digunakan di seluruh aplikasi.
-
-// Mendefinisikan variabel global untuk tautan iklan
+// Variabel global untuk tautan iklan dari Adsterra
 window.ADSTERRA_DIRECT_LINKS = [
     'https://discreetisabella.com/g77bpz0g?key=f1cc7147d1c59d932b6186896ab8854c',
     'https://discreetisabella.com/vttzzi1n?key=bfc8d7d57de835830a0d72fbe7a47be1',
@@ -21,3 +18,7 @@ window.ADSTERRA_DIRECT_LINKS = [
     'https://discreetisabella.com/qn92sfcb?key=a8333f15c6bba15e367a5456f691547c',
     'https://discreetisabella.com/rz2xzbfm?key=8c4045c97068010d84c3f1002e82b1c9'
 ];
+
+// Anda juga bisa menambahkan variabel konfigurasi lainnya di sini, seperti:
+// const API_BASE_URL = 'https://api.themoviedb.org/3';
+// const API_KEY = 'your_tmdb_api_key';
