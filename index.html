@@ -974,14 +974,24 @@
                     }
 
                     // Menambahkan tombol "Stream Now" di bawah ulasan
-                    const streamingNowButton = document.createElement('div'); // Mengubah menjadi div untuk menampung tombol
-                    streamingNowButton.className = 'mt-8 flex justify-center';
-                    streamingNowButton.innerHTML = `
+                    const streamingNowButtonContainer = document.createElement('div'); // Mengubah menjadi div untuk menampung tombol
+                    streamingNowButtonContainer.className = 'mt-8 flex justify-center';
+                    streamingNowButtonContainer.innerHTML = `
                         <button id="trigger-streaming-view-button" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 shadow-lg transform hover:scale-105">
                             Stream Now
                         </button>
                     `;
-                    contentArea.appendChild(streamingNowButton);
+                    contentArea.appendChild(streamingNowButtonContainer);
+
+                    // Add event listener for the "Stream Now" button
+                    const triggerStreamingViewButton = document.getElementById('trigger-streaming-view-button');
+                    if (triggerStreamingViewButton) {
+                        triggerStreamingViewButton.addEventListener('click', () => {
+                            // Update the state to switch to the streaming view
+                            // The currentMediaId, currentMediaType, and currentMediaTitle are already set in showDetails
+                            updateState({ currentView: 'streaming' });
+                        });
+                    }
 
 
                     // Menambahkan event listener untuk link genre
