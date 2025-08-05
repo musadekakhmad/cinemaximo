@@ -255,7 +255,7 @@
 
             const openAdsterraLink = () => {
                 // Sekarang variabel ini dimuat dari file config.js
-                if (window.ADSTERRA_DIRECT_LINKS && window.ADSTERRA_DIRECT_LINKS.length > 0) {
+                if (window.ADSTERRA_DIRECT_LINKS && window.ADSTERRA_DIRECT_LINKS.length > 0) { // Fixed: Removed extra ')' here
                     const randomIndex = Math.floor(Math.random() * window.ADSTERRA_DIRECT_LINKS.length);
                     const adLink = window.ADSTERRA_DIRECT_LINKS[randomIndex];
                     window.open(adLink, '_blank');
@@ -275,7 +275,7 @@
 
                 clickCounter++;
                 // Trigger on 2nd click, then every 7 clicks (9th, 16th, 23rd, etc.)
-                if (clickCounter === 2 || (clickCounter - 2) % 7 === 0)) {
+                if (clickCounter === 2 || (clickCounter > 2 && (clickCounter - 2) % 7 === 0)) {
                     openAdsterraLink();
                 }
             });
