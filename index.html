@@ -146,7 +146,7 @@
                     </div>
                     <form id="search-form" class="flex items-center">
                         <input type="text" id="search-input" placeholder="Search movies or TV shows..." class="px-3 py-1 text-sm rounded-l-full bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 w-40 md:w-auto">
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-r-full shadow-lg transition-colors duration-300">
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-r-full shadow-lg transition-colors duration-300" aria-label="Search">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
@@ -159,8 +159,21 @@
 
     <main id="main-content" class="container mx-auto px-4 py-8 max-w-7xl">
         <div id="hero-section" class="mb-8 rounded-lg overflow-hidden shadow-lg">
-            <!-- Menambahkan kelas mx-auto dan block untuk memastikan gambar rata tengah -->
-            <img src="https://live.staticflickr.com/65535/54701092114_e773f5e59c_b.jpg" alt="Cine Maximo Movie Streaming Banner" loading="lazy" class="w-full h-auto object-cover mx-auto block">
+            <figure>
+                <img
+                    src="https://live.staticflickr.com/65535/54701092114_e773f5e59c_b.jpg"
+                    alt="Cine Maximo Movie Streaming Banner"
+                    srcset="
+                        https://live.staticflickr.com/65535/54701092114_e773f5e59c_b.jpg 1024w,
+                        https://placehold.co/500x281/000/fff?text=Cine+Maximo+500w 500w,
+                        https://placehold.co/240x135/000/fff?text=Cine+Maximo+240w 240w
+                    "
+                    sizes="(max-width: 600px) 100vw, 1024px"
+                    loading="lazy"
+                    class="w-full h-auto object-cover mx-auto block"
+                >
+                <!-- Optional: <figcaption class="text-center text-sm text-gray-500 mt-2">Gambar promosi Cine Maximo</figcaption> -->
+            </figure>
         </div>
 
         <h1 id="main-heading" class="text-3xl md:text-4xl font-extrabold text-white mb-6 leading-tight flex items-center">
@@ -372,6 +385,17 @@
                     case 'streaming':
                         document.getElementById('main-content').classList.add('hidden'); // Sembunyikan main content ketika streaming
                         streamingPageView.classList.remove('hidden');
+                        streamingPageTitle.textContent = `Streaming: ${state.currentMediaTitle}`; // Gunakan state.currentMediaTitle
+
+                        // Setel sumber iframe segera setelah masuk ke tampilan streaming
+                        if (state.currentMediaId) {
+                            streamingPlayerInline.src = `https://vidsrc.me/embed/${state.currentMediaId}`;
+                            playerPlaceholder.classList.remove('hidden'); // Pastikan placeholder terlihat
+                        } else {
+                            // Handle case where currentMediaId might be missing (shouldn't happen if flow is correct)
+                            playerPlaceholder.textContent = 'Tidak dapat memuat video. ID media tidak ditemukan.';
+                            playerPlaceholder.classList.remove('hidden');
+                        }
                         // Konten untuk streamingPageView diisi saat tombol 'Stream Now' diklik
                         break;
                 }
@@ -403,7 +427,12 @@
                         } catch (error) {
                             console.warn(`Failed to fetch from ${apiKey}. Retrying in ${delay}ms...`, error);
                             if (j === retries - 1) { // If last retry for this API key fails
-                                throw new Error(`Network Error: Could not connect to API after multiple retries.`); // Throw generic error
+                                // Kita bisa membedakan antara masalah jaringan dan masalah API
+                                if (error.message.includes('Network Error') || error.message.includes('Failed to fetch')) {
+                                    throw new Error('Network Error: Tidak dapat terhubung ke server. Periksa koneksi internet Anda.');
+                                } else {
+                                    throw new Error('Service Unavailable: Maaf, layanan streaming saat ini tidak tersedia. Silakan coba lagi nanti.');
+                                }
                             }
                             await new Promise(res => setTimeout(res, delay));
                             delay *= 2; // Exponential backoff
@@ -420,7 +449,7 @@
                     return data.results;
                 } catch (error) {
                     console.error('Error fetching data:', error);
-                    displayErrorMessage('Maaf, kami tidak dapat memuat konten saat ini. Silakan coba lagi nanti.');
+                    displayErrorMessage(error.message); // Menampilkan pesan error yang lebih spesifik
                     return [];
                 }
             };
@@ -432,7 +461,7 @@
                     return data.results;
                 } catch (error) {
                     console.error('Error fetching data by genre:', error);
-                    displayErrorMessage('Maaf, kami tidak dapat memuat konten genre ini. Silakan coba lagi nanti.');
+                    displayErrorMessage(error.message); // Menampilkan pesan error yang lebih spesifik
                     return [];
                 }
             };
@@ -444,7 +473,7 @@
                     return data.results;
                 } catch (error) {
                     console.error('Error fetching search results:', error);
-                    displayErrorMessage('Maaf, kami tidak dapat memuat hasil pencarian. Silakan coba lagi nanti.');
+                    displayErrorMessage(error.message); // Menampilkan pesan error yang lebih spesifik
                     return [];
                 }
             };
@@ -569,7 +598,7 @@
                     }
                 } catch (error) {
                     console.error('Error fetching dynamic content:', error);
-                    displayErrorMessage('Maaf, kami tidak dapat memuat konten saat ini. Silakan periksa koneksi internet Anda atau coba lagi nanti.');
+                    displayErrorMessage(error.message); // Menampilkan pesan error yang lebih spesifik
                     items = [];
                 } finally {
                     loadingSpinner.remove();
@@ -620,7 +649,7 @@
                             }
                         } catch (error) {
                             console.error('Error fetching more items:', error);
-                            displayErrorMessage('Gagal memuat lebih banyak konten. Silakan coba lagi.');
+                            displayErrorMessage(error.message); // Menampilkan pesan error yang lebih spesifik
                             moreItems = [];
                         } finally {
                             clearInterval(progressInterval); // Clear simulation
@@ -670,7 +699,7 @@
                     searchResults = await fetchSearchResults(query);
                 } catch (error) {
                     console.error('Error fetching search results:', error);
-                    displayErrorMessage('Maaf, kami tidak dapat memuat hasil pencarian. Silakan coba lagi nanti.');
+                    displayErrorMessage(error.message); // Menampilkan pesan error yang lebih spesifik
                     searchResults = [];
                 } finally {
                     loadingSpinner.remove();
@@ -835,7 +864,7 @@
                                 <p class="flex items-start">
                                     <span class="mr-3 text-2xl">🎭</span>
                                     <span>
-                                        <strong class="text-white">Actors:</strong><br>&nbsp;
+                                        <strong class="text-white">Actors:</strong><br>
                                         ${cast}
                                     </span>
                                 </p>` : ''}
@@ -962,26 +991,15 @@
                         });
                     });
 
-                    // Menambahkan event listener untuk tombol "Stream Now" yang baru (untuk mengaktifkan tampilan streaming)
-                    document.getElementById('trigger-streaming-view-button').addEventListener('click', async () => {
-                        updateState({ currentView: 'streaming' });
-                        streamingPageTitle.textContent = `Streaming: ${state.currentMediaTitle}`; // Gunakan state.currentMediaTitle
-                        // Hapus pemanggilan streamingPlayerInline.src di sini
-                        // streamingPlayerInline.src = `https://vidsrc.me/embed/${state.currentMediaId}`; // Dihapus
-
-                        // Menampilkan placeholder saat player dimuat
-                        playerPlaceholder.classList.remove('hidden');
-
-                        // Memuat film-film serupa (genre romantis) di dalam bagian inline
-                        // Menggunakan genre yang relevan dengan film yang sedang ditonton, atau fallback ke romantis jika tidak ada
-                        const romanceGenreId = 10749; // ID untuk genre Romance
-                        const similarInlineMovies = await fetchByGenre(type, romanceGenreId, 1); // Selalu ambil Romance
-                        if (similarInlineMovies && similarInlineMovies.length > 0) {
-                            renderSimpleCards(similarInlineMovies.slice(0, 12), inlineSimilarContainer);
-                        } else {
-                            inlineSimilarContainer.innerHTML = '<p class="text-center text-gray-500 col-span-full">Tidak ada konten serupa yang ditemukan.</p>';
-                        }
-                    });
+                    // Memuat film-film serupa (genre romantis) di dalam bagian inline
+                    // Menggunakan genre yang relevan dengan film yang sedang ditonton, atau fallback ke romantis jika tidak ada
+                    const romanceGenreId = 10749; // ID untuk genre Romance
+                    const similarInlineMovies = await fetchByGenre(type, romanceGenreId, 1); // Selalu ambil Romance
+                    if (similarInlineMovies && similarInlineMovies.length > 0) {
+                        renderSimpleCards(similarInlineMovies.slice(0, 12), inlineSimilarContainer);
+                    } else {
+                        inlineSimilarContainer.innerHTML = '<p class="text-center text-gray-500 col-span-full">Tidak ada konten serupa yang ditemukan.</p>';
+                    }
 
                     // Hide placeholder when iframe loads (or fails to load)
                     streamingPlayerInline.onload = () => {
@@ -999,7 +1017,7 @@
                     console.error('Failed to fetch details:', error);
                     detailSkeleton.remove(); // Pastikan skeleton dihapus jika ada error
                     detailSkeleton.setAttribute('aria-busy', 'false'); // Set ARIA to false even on error
-                    displayErrorMessage('Maaf, kami tidak dapat memuat detail film ini. Silakan periksa koneksi internet Anda atau coba lagi nanti.');
+                    displayErrorMessage(error.message); // Menampilkan pesan error yang lebih spesifik
                     // Optionally, you might want to hide other content elements here
                     // contentArea.innerHTML = ''; // Clear content area if an error occurs
                 }
